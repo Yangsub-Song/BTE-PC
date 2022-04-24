@@ -55,10 +55,16 @@ namespace QuickBlueToothLE
             deviceWatcher.EnumerationCompleted += DeviceWatcher_EnumerationCompleted;
             deviceWatcher.Stopped += DeviceWatcher_Stopped;
 
-            // This will create a file named sample.txt
-            // at the specified location 
+            // Check command line parameter
+            if (args.Length == 0)
+            {
+                Console.WriteLine($"Usage: {System.AppDomain.CurrentDomain.FriendlyName} <File Name>");
+                return;
+            }
+            // Get stream reader for sending/receiving data stream 
             StreamReader sr = new StreamReader(args[0]);
-            string str = sr.ReadLine();
+            if (sr == null)
+                return;
 
             // Start the watcher.
             deviceWatcher.Start();
